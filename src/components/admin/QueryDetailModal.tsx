@@ -7,21 +7,13 @@ import {
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import { Mail, Phone, MapPin, User, Calendar, MessageSquare } from 'lucide-react';
-import { format } from 'date-fns';
+import { Mail, Phone, MapPin, User, MessageSquare } from 'lucide-react';
 
 interface QueryDetailModalProps {
   query: QuerySubmission | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
-
-const statusStyles = {
-  new: 'bg-info/10 text-info border-info/20',
-  'in-progress': 'bg-warning/10 text-warning border-warning/20',
-  resolved: 'bg-success/10 text-success border-success/20',
-};
 
 const customerTypeLabels = {
   individual: 'Individual',
@@ -37,12 +29,7 @@ export function QueryDetailModal({ query, open, onOpenChange }: QueryDetailModal
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle className="flex items-center justify-between">
-            <span>Query Details</span>
-            <Badge className={statusStyles[query.status]} variant="outline">
-              {query.status === 'in-progress' ? 'In Progress' : query.status.charAt(0).toUpperCase() + query.status.slice(1)}
-            </Badge>
-          </DialogTitle>
+          <DialogTitle>Query Details</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6">
@@ -75,12 +62,6 @@ export function QueryDetailModal({ query, open, onOpenChange }: QueryDetailModal
                 <MapPin className="h-4 w-4 text-muted-foreground" />
                 <span className="text-foreground">{query.city}</span>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-                <span className="text-muted-foreground">
-                  {format(query.createdAt, 'MMMM d, yyyy \'at\' h:mm a')}
-                </span>
-              </div>
             </div>
           </div>
 
@@ -95,16 +76,6 @@ export function QueryDetailModal({ query, open, onOpenChange }: QueryDetailModal
             <p className="rounded-lg bg-muted/50 p-4 text-sm leading-relaxed text-foreground">
               {query.message}
             </p>
-          </div>
-
-          {/* Actions */}
-          <div className="flex gap-3">
-            <Button className="flex-1" variant="outline">
-              Mark as In Progress
-            </Button>
-            <Button className="flex-1">
-              Mark as Resolved
-            </Button>
           </div>
         </div>
       </DialogContent>
