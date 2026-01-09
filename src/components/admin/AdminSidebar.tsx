@@ -1,4 +1,4 @@
-import { LayoutDashboard, MessageSquare, Users, Settings, LogOut, Menu } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, LogOut } from 'lucide-react';
 import { NavLink } from '@/components/NavLink';
 import {
   Sidebar,
@@ -18,8 +18,6 @@ import { Button } from '@/components/ui/button';
 const menuItems = [
   { title: 'Dashboard', url: '/', icon: LayoutDashboard },
   { title: 'Queries', url: '/queries', icon: MessageSquare },
-  { title: 'Customers', url: '/customers', icon: Users },
-  { title: 'Settings', url: '/settings', icon: Settings },
 ];
 
 export function AdminSidebar() {
