@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { QueryTable } from '@/components/admin/QueryTable';
 import { QueryDetailModal } from '@/components/admin/QueryDetailModal';
-import { mockQueries } from '@/data/mockQueries';
 import { QuerySubmission } from '@/types/query';
 
 const Queries = () => {
+  const [queries] = useState<QuerySubmission[]>([]);
   const [selectedQuery, setSelectedQuery] = useState<QuerySubmission | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -24,7 +24,7 @@ const Queries = () => {
           </p>
         </div>
 
-        <QueryTable queries={mockQueries} onViewDetails={handleViewDetails} />
+        <QueryTable queries={queries} onViewDetails={handleViewDetails} />
 
         <QueryDetailModal
           query={selectedQuery}

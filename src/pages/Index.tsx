@@ -3,11 +3,11 @@ import { AdminLayout } from '@/layouts/AdminLayout';
 import { StatsCard } from '@/components/admin/StatsCard';
 import { QueryTable } from '@/components/admin/QueryTable';
 import { QueryDetailModal } from '@/components/admin/QueryDetailModal';
-import { mockQueries } from '@/data/mockQueries';
 import { QuerySubmission } from '@/types/query';
 import { MessageSquare, Users, Clock, CheckCircle } from 'lucide-react';
 
 const Index = () => {
+  const [queries] = useState<QuerySubmission[]>([]);
   const [selectedQuery, setSelectedQuery] = useState<QuerySubmission | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -17,10 +17,10 @@ const Index = () => {
   };
 
   // Calculate stats
-  const totalQueries = mockQueries.length;
-  const newQueries = mockQueries.filter(q => q.status === 'new').length;
-  const inProgressQueries = mockQueries.filter(q => q.status === 'in-progress').length;
-  const resolvedQueries = mockQueries.filter(q => q.status === 'resolved').length;
+  const totalQueries = queries.length;
+  const newQueries = queries.filter(q => q.status === 'new').length;
+  const inProgressQueries = queries.filter(q => q.status === 'in-progress').length;
+  const resolvedQueries = queries.filter(q => q.status === 'resolved').length;
 
   return (
     <AdminLayout>
@@ -39,7 +39,6 @@ const Index = () => {
             title="Total Queries"
             value={totalQueries}
             icon={MessageSquare}
-            trend={{ value: 12, isPositive: true }}
             variant="primary"
           />
           <StatsCard
@@ -58,7 +57,6 @@ const Index = () => {
             title="Resolved"
             value={resolvedQueries}
             icon={CheckCircle}
-            trend={{ value: 8, isPositive: true }}
             variant="success"
           />
         </div>
@@ -68,7 +66,7 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-foreground">Recent Queries</h2>
           </div>
-          <QueryTable queries={mockQueries} onViewDetails={handleViewDetails} />
+          <QueryTable queries={queries} onViewDetails={handleViewDetails} />
         </div>
       </div>
 
