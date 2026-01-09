@@ -4,7 +4,7 @@ import { StatsCard } from '@/components/admin/StatsCard';
 import { QueryTable } from '@/components/admin/QueryTable';
 import { QueryDetailModal } from '@/components/admin/QueryDetailModal';
 import { QuerySubmission } from '@/types/query';
-import { MessageSquare, Users, Clock, CheckCircle } from 'lucide-react';
+import { MessageSquare, Building2, User, Briefcase } from 'lucide-react';
 
 const Index = () => {
   const [queries] = useState<QuerySubmission[]>([]);
@@ -16,11 +16,11 @@ const Index = () => {
     setModalOpen(true);
   };
 
-  // Calculate stats
+  // Calculate stats by customer type
   const totalQueries = queries.length;
-  const newQueries = queries.filter(q => q.status === 'new').length;
-  const inProgressQueries = queries.filter(q => q.status === 'in-progress').length;
-  const resolvedQueries = queries.filter(q => q.status === 'resolved').length;
+  const individualQueries = queries.filter(q => q.customerType === 'individual').length;
+  const businessQueries = queries.filter(q => q.customerType === 'business').length;
+  const enterpriseQueries = queries.filter(q => q.customerType === 'enterprise').length;
 
   return (
     <AdminLayout>
@@ -42,21 +42,21 @@ const Index = () => {
             variant="primary"
           />
           <StatsCard
-            title="New Queries"
-            value={newQueries}
-            icon={Users}
+            title="Individual"
+            value={individualQueries}
+            icon={User}
             variant="default"
           />
           <StatsCard
-            title="In Progress"
-            value={inProgressQueries}
-            icon={Clock}
+            title="Business"
+            value={businessQueries}
+            icon={Briefcase}
             variant="warning"
           />
           <StatsCard
-            title="Resolved"
-            value={resolvedQueries}
-            icon={CheckCircle}
+            title="Enterprise"
+            value={enterpriseQueries}
+            icon={Building2}
             variant="success"
           />
         </div>
